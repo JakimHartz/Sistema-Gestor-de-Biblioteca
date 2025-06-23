@@ -6,14 +6,14 @@ public class Libro {
     int cantidad;
     private boolean disponible;
 
-    public Libro(String codigo, String titulo, String autor, String editorial, int cantidad, boolean disponible) {
+    public Libro(String codigo, String titulo, String autor, String editorial, int cantidad) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.autor = autor;
         this.editorial = editorial;
         //this.idioma = idioma;
         this.cantidad = cantidad;
-        this.disponible = disponible;
+        //this.disponible = disponible;
     }
 
     public String getEditorial() {

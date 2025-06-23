@@ -2,7 +2,6 @@ package principal;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -11,9 +10,7 @@ public class Interfaz extends javax.swing.JFrame {
     static DefaultTableModel x = new DefaultTableModel();
     static DefaultTableModel y = new DefaultTableModel();
     static DefaultTableModel z = new DefaultTableModel();
-//    DefaultComboBoxModel<String> m = new DefaultComboBoxModel<>();
 
-//    ArrayList<String> usuariosReg = new ArrayList<>();
     ArrayList<Libro> listaLibros = new ArrayList<>();
     ArrayList<Revista> listaRevistas = new ArrayList<>();
     ArrayList<Tesis> listaTesis = new ArrayList<>();
@@ -29,7 +26,7 @@ public class Interfaz extends javax.swing.JFrame {
         ocultarMenus();
         pnlAcceso.setVisible(true);
         pnlInicio.setVisible(false);
-//        usuariosReg.add("Administrador");
+//        listaUsuarios.add("Administrador");
     }
 
     @SuppressWarnings("unchecked")
@@ -131,7 +128,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
-        btnRegistrarUsuario = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         pnlInicio = new javax.swing.JPanel();
         btnVerLibros = new javax.swing.JButton();
@@ -141,6 +138,7 @@ public class Interfaz extends javax.swing.JFrame {
         menus = new javax.swing.JMenuBar();
         menuInicio = new javax.swing.JMenu();
         menuItemInicio = new javax.swing.JMenuItem();
+        menuItemRegistrarUsuario = new javax.swing.JMenuItem();
         menuItemCerrarSesion = new javax.swing.JMenuItem();
         menuItemSalir = new javax.swing.JMenuItem();
         menuConsultar = new javax.swing.JMenu();
@@ -722,14 +720,14 @@ public class Interfaz extends javax.swing.JFrame {
         });
         pnlAcceso.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 420, -1, -1));
 
-        btnRegistrarUsuario.setFont(new java.awt.Font("Liberation Serif", 1, 24)); // NOI18N
-        btnRegistrarUsuario.setText("Registrar usuario");
-        btnRegistrarUsuario.addActionListener(new java.awt.event.ActionListener() {
+        btnSalir.setFont(new java.awt.Font("Liberation Serif", 1, 24)); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarUsuarioActionPerformed(evt);
+                btnSalirActionPerformed(evt);
             }
         });
-        pnlAcceso.add(btnRegistrarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 470, -1, -1));
+        pnlAcceso.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 470, -1, -1));
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/libros.jpeg"))); // NOI18N
@@ -785,6 +783,17 @@ public class Interfaz extends javax.swing.JFrame {
         menuItemInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon1.png"))); // NOI18N
         menuItemInicio.setText("Inicio");
         menuInicio.add(menuItemInicio);
+
+        menuItemRegistrarUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemRegistrarUsuario.setFont(new java.awt.Font("Liberation Serif", 0, 18)); // NOI18N
+        menuItemRegistrarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon3.png"))); // NOI18N
+        menuItemRegistrarUsuario.setText("Registrar Usuario");
+        menuItemRegistrarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRegistrarUsuarioActionPerformed(evt);
+            }
+        });
+        menuInicio.add(menuItemRegistrarUsuario);
 
         menuItemCerrarSesion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuItemCerrarSesion.setFont(new java.awt.Font("Liberation Serif", 0, 18)); // NOI18N
@@ -892,22 +901,29 @@ public class Interfaz extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String usuario = (String) cmbUsuarios.getSelectedItem();
         String contrasenya = String.valueOf(password.getPassword());
-        String contraseña = "admin", nombre = "Administrador";
+        String contraseña = "admin", usuario1 = "Administrador", usuario2 = "Alumno";
         if (!contrasenya.isEmpty()) {
-            if (nombre.equals(usuario)) {
+            if (usuario1.equals(usuario)) {
                 if (contraseña.equals(contrasenya)) {
                     //pnlAcceso.setVisible(false);
                     mostrarMenus();
                     oculta();
                     pnlInicio.setVisible(true);
+                    habilitarBotonesAdministrador();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Error C");
+                    JOptionPane.showMessageDialog(this, "Contraseña incorrecta.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+            } else if (usuario2.equals(usuario)) {
+                //pnlAcceso.setVisible(false);
+                mostrarMenus();
+                oculta();
+                pnlInicio.setVisible(true);
+                deshabilitarBotonesAdministrador();
             } else {
-                JOptionPane.showMessageDialog(this, "Error U");
+                JOptionPane.showMessageDialog(this, "Usuario incorrecto.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Introduzca la contraseña");
+            JOptionPane.showMessageDialog(this, "Por favor, introduzca la contraseña.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -991,9 +1007,10 @@ public class Interfaz extends javax.swing.JFrame {
         mostrarJDialogTesis();
     }//GEN-LAST:event_mnItmTesisActionPerformed
 
-    private void btnRegistrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarUsuarioActionPerformed
-        mostrarJDialogRegistrarUsuario();
-    }//GEN-LAST:event_btnRegistrarUsuarioActionPerformed
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        java.awt.event.WindowEvent salir = new java.awt.event.WindowEvent(this, java.awt.event.WindowEvent.WINDOW_CLOSING);
+        formWindowClosing(salir);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAnyadirTesisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnyadirTesisActionPerformed
         lblAnyadirTesis.setText("Añadir Tesis");
@@ -1008,7 +1025,7 @@ public class Interfaz extends javax.swing.JFrame {
         txtApellidoPat.setText("");
         txtApellidoMat.setText("");
         txtMatricula.setText("");
-        JOptionPane.showMessageDialog(this, "Usuario agregado.");
+        JOptionPane.showMessageDialog(dialogRegistrarUsuario, "Usuario agregado.");
         System.out.println(listaUsuarios.size());
         System.out.println("ArrayList: " + listaUsuarios);
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -1328,6 +1345,10 @@ public class Interfaz extends javax.swing.JFrame {
         txtUniversidadTesis.setText("");
     }//GEN-LAST:event_dialogAnyadirTesisWindowClosing
 
+    private void menuItemRegistrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRegistrarUsuarioActionPerformed
+        mostrarJDialogRegistrarUsuario();
+    }//GEN-LAST:event_menuItemRegistrarUsuarioActionPerformed
+
     public void oculta() {
         pnlAcceso.setVisible(false);
     }
@@ -1433,6 +1454,32 @@ public class Interfaz extends javax.swing.JFrame {
         return true;
     }
 
+    public void deshabilitarBotonesAdministrador() {
+        btnAnyadirLibro.setEnabled(false);
+        btnEliminarLibro.setEnabled(false);
+        btnActualizarLibro.setEnabled(false);
+        btnAnyadirRev.setEnabled(false);
+        btnEliminarRevista.setEnabled(false);
+        btnActualizarRevista.setEnabled(false);
+        btnAnyadirTesis.setEnabled(false);
+        btnEliminarTesis.setEnabled(false);
+        btnActualizarTesis.setEnabled(false);
+        menuItemRegistrarUsuario.setEnabled(false);
+    }
+
+    public void habilitarBotonesAdministrador() {
+        btnAnyadirLibro.setEnabled(true);
+        btnEliminarLibro.setEnabled(true);
+        btnActualizarLibro.setEnabled(true);
+        btnAnyadirRev.setEnabled(true);
+        btnEliminarRevista.setEnabled(true);
+        btnActualizarRevista.setEnabled(true);
+        btnAnyadirTesis.setEnabled(true);
+        btnEliminarTesis.setEnabled(true);
+        btnActualizarTesis.setEnabled(true);
+        menuItemRegistrarUsuario.setEnabled(false);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -1486,10 +1533,10 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarRevista;
     private javax.swing.JButton btnEliminarTesis;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JButton btnRegistrarUsuario;
     private javax.swing.JButton btnRegresarAnyadirLibros;
     private javax.swing.JButton btnRegresarAnyadirRevistas;
     private javax.swing.JButton btnRegresarAnyadirTesis;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVerLibros;
     private javax.swing.JButton btnVerRevistas;
     private javax.swing.JButton btnVerTesis;
@@ -1555,6 +1602,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenu menuInicio;
     private javax.swing.JMenuItem menuItemCerrarSesion;
     private javax.swing.JMenuItem menuItemInicio;
+    private javax.swing.JMenuItem menuItemRegistrarUsuario;
     private javax.swing.JMenuItem menuItemSalir;
     private javax.swing.JMenu menuPrestamos;
     private javax.swing.JMenu menuReportes;
