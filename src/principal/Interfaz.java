@@ -40,12 +40,12 @@ public class Interfaz extends javax.swing.JFrame {
         btnVolverLibros = new javax.swing.JButton();
         btnEliminarLibro = new javax.swing.JButton();
         dialogAnyadirLibros = new javax.swing.JDialog();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lblAnyadirLibro = new javax.swing.JLabel();
+        lblCodigoLibro = new javax.swing.JLabel();
+        lblTituloLibro = new javax.swing.JLabel();
+        lblAutorLibro = new javax.swing.JLabel();
+        lblCantidadLibros = new javax.swing.JLabel();
+        lblEditorialLibro = new javax.swing.JLabel();
         txtCodigoLib = new javax.swing.JTextField();
         txtTituloLib = new javax.swing.JTextField();
         txtAutorLib = new javax.swing.JTextField();
@@ -53,7 +53,7 @@ public class Interfaz extends javax.swing.JFrame {
         txtCantidadLib = new javax.swing.JTextField();
         btnAceptarLibro = new javax.swing.JButton();
         btnRegresarAnyadirLibros = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
+        lblBackgroundAnyadirLibro = new javax.swing.JLabel();
         dialogRevistas = new javax.swing.JDialog();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -153,7 +153,7 @@ public class Interfaz extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Titulo", "Autor", "Editorial", "Cantidad"
+                "Código", "Título", "Autor", "Editorial", "Cantidad"
             }
         ));
         jScrollPane1.setViewportView(tablaLibros);
@@ -198,32 +198,37 @@ public class Interfaz extends javax.swing.JFrame {
 
         dialogAnyadirLibros.setMinimumSize(new java.awt.Dimension(800, 600));
         dialogAnyadirLibros.setModal(true);
+        dialogAnyadirLibros.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                dialogAnyadirLibrosWindowClosing(evt);
+            }
+        });
         dialogAnyadirLibros.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("Liberation Serif", 1, 36)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Añadir Libro");
-        dialogAnyadirLibros.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 320, 40));
+        lblAnyadirLibro.setFont(new java.awt.Font("Liberation Serif", 1, 36)); // NOI18N
+        lblAnyadirLibro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAnyadirLibro.setText("Añadir Libro");
+        dialogAnyadirLibros.getContentPane().add(lblAnyadirLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 320, 40));
 
-        jLabel7.setFont(new java.awt.Font("Liberation Serif", 3, 24)); // NOI18N
-        jLabel7.setText("Código");
-        dialogAnyadirLibros.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
+        lblCodigoLibro.setFont(new java.awt.Font("Liberation Serif", 3, 24)); // NOI18N
+        lblCodigoLibro.setText("Código");
+        dialogAnyadirLibros.getContentPane().add(lblCodigoLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Liberation Serif", 3, 24)); // NOI18N
-        jLabel8.setText("Título");
-        dialogAnyadirLibros.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, -1, -1));
+        lblTituloLibro.setFont(new java.awt.Font("Liberation Serif", 3, 24)); // NOI18N
+        lblTituloLibro.setText("Título");
+        dialogAnyadirLibros.getContentPane().add(lblTituloLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Liberation Serif", 3, 24)); // NOI18N
-        jLabel9.setText("Autor");
-        dialogAnyadirLibros.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, -1, -1));
+        lblAutorLibro.setFont(new java.awt.Font("Liberation Serif", 3, 24)); // NOI18N
+        lblAutorLibro.setText("Autor");
+        dialogAnyadirLibros.getContentPane().add(lblAutorLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Liberation Serif", 3, 24)); // NOI18N
-        jLabel10.setText("Cantidad");
-        dialogAnyadirLibros.getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, -1, -1));
+        lblCantidadLibros.setFont(new java.awt.Font("Liberation Serif", 3, 24)); // NOI18N
+        lblCantidadLibros.setText("Cantidad");
+        dialogAnyadirLibros.getContentPane().add(lblCantidadLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Liberation Serif", 3, 24)); // NOI18N
-        jLabel11.setText("Editorial");
-        dialogAnyadirLibros.getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, -1, -1));
+        lblEditorialLibro.setFont(new java.awt.Font("Liberation Serif", 3, 24)); // NOI18N
+        lblEditorialLibro.setText("Editorial");
+        dialogAnyadirLibros.getContentPane().add(lblEditorialLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, -1, -1));
 
         txtCodigoLib.setFont(new java.awt.Font("Liberation Serif", 1, 18)); // NOI18N
         dialogAnyadirLibros.getContentPane().add(txtCodigoLib, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 380, -1));
@@ -268,11 +273,11 @@ public class Interfaz extends javax.swing.JFrame {
         });
         dialogAnyadirLibros.getContentPane().add(btnRegresarAnyadirLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 50, 50));
 
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/libros.jpeg"))); // NOI18N
-        jLabel12.setMinimumSize(new java.awt.Dimension(800, 600));
-        jLabel12.setPreferredSize(new java.awt.Dimension(800, 600));
-        dialogAnyadirLibros.getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
+        lblBackgroundAnyadirLibro.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblBackgroundAnyadirLibro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/libros.jpeg"))); // NOI18N
+        lblBackgroundAnyadirLibro.setMinimumSize(new java.awt.Dimension(800, 600));
+        lblBackgroundAnyadirLibro.setPreferredSize(new java.awt.Dimension(800, 600));
+        dialogAnyadirLibros.getContentPane().add(lblBackgroundAnyadirLibro, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         dialogRevistas.setMinimumSize(new java.awt.Dimension(800, 600));
         dialogRevistas.setModal(true);
@@ -291,7 +296,7 @@ public class Interfaz extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Codigo", "Titulo", "Editorial"
+                "Código", "Título", "Editorial"
             }
         ));
         jScrollPane2.setViewportView(tablaRevistas);
@@ -745,6 +750,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerTesisActionPerformed
 
     private void btnAnyadirLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnyadirLibroActionPerformed
+        lblAnyadirLibro.setText("Añadir Libro");
         dialogAnyadirLibros.setLocationRelativeTo(this);
         dialogAnyadirLibros.setVisible(true);
     }//GEN-LAST:event_btnAnyadirLibroActionPerformed
@@ -871,6 +877,7 @@ public class Interfaz extends javax.swing.JFrame {
             String codigoLibro = (String) tablaLibros.getValueAt(indiceFila, columna);
             for (Libro l : listaLibros) {
                 if (l.getCodigo().equals(codigoLibro)) {
+                    lblAnyadirLibro.setText("Modificar Libro");
                     txtCodigoLib.setText(l.getCodigo());
                     txtTituloLib.setText(l.getTitulo());
                     txtAutorLib.setText(l.getAutor());
@@ -891,11 +898,16 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void btnRegresarAnyadirLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarAnyadirLibrosActionPerformed
         if (!txtCodigoLib.getText().trim().isEmpty() || !txtTituloLib.getText().trim().isEmpty()
-            || !txtAutorLib.getText().trim().isEmpty() || !txtEditorialLib.getText().trim().isEmpty()
-            || !txtCantidadLib.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Error de registro.");
+                || !txtAutorLib.getText().trim().isEmpty() || !txtEditorialLib.getText().trim().isEmpty()
+                || !txtCantidadLib.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(dialogAnyadirLibros, "Error de registro.");
         }
         dialogAnyadirLibros.setVisible(false);
+        txtCodigoLib.setText("");
+        txtTituloLib.setText("");
+        txtAutorLib.setText("");
+        txtEditorialLib.setText("");
+        txtCantidadLib.setText("");
     }//GEN-LAST:event_btnRegresarAnyadirLibrosActionPerformed
 
     private void btnVolverLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverLibrosActionPerformed
@@ -915,7 +927,7 @@ public class Interfaz extends javax.swing.JFrame {
                 if (l.getCodigo().equals(codigoLibro)) {
                     listaLibros.remove(indiceFila);
                     JOptionPane.showMessageDialog(dialogLibros, "<html>Libro eliminado.<br/>Actualice para ver cambios.</html>", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-                    
+
                     break;
                 } else {
                     JOptionPane.showMessageDialog(dialogLibros, "Libro no encontrado!", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -927,16 +939,30 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarLibroActionPerformed
 
     private void txtCantidadLibKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadLibKeyTyped
-        if(!Character.isDigit(evt.getKeyChar())){
+        if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_txtCantidadLibKeyTyped
 
     private void txtAutorLibKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAutorLibKeyTyped
-        if(!Character.isLetter(evt.getKeyChar())){
+        if (!Character.isLetter(evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_txtAutorLibKeyTyped
+
+    private void dialogAnyadirLibrosWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialogAnyadirLibrosWindowClosing
+        if (!txtCodigoLib.getText().trim().isEmpty() || !txtTituloLib.getText().trim().isEmpty()
+                || !txtAutorLib.getText().trim().isEmpty() || !txtEditorialLib.getText().trim().isEmpty()
+                || !txtCantidadLib.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(dialogAnyadirLibros, "Error de registro.");
+        }
+        dialogAnyadirLibros.setVisible(false);
+        txtCodigoLib.setText("");
+        txtTituloLib.setText("");
+        txtAutorLib.setText("");
+        txtEditorialLib.setText("");
+        txtCantidadLib.setText("");
+    }//GEN-LAST:event_dialogAnyadirLibrosWindowClosing
 
     public void oculta() {
         pnlAcceso.setVisible(false);
@@ -1099,9 +1125,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JDialog dialogTesis;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1113,11 +1136,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -1125,8 +1144,14 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblAnyadirLibro;
     private javax.swing.JLabel lblApellidoMat;
     private javax.swing.JLabel lblApellidoPat;
+    private javax.swing.JLabel lblAutorLibro;
+    private javax.swing.JLabel lblBackgroundAnyadirLibro;
+    private javax.swing.JLabel lblCantidadLibros;
+    private javax.swing.JLabel lblCodigoLibro;
+    private javax.swing.JLabel lblEditorialLibro;
     private javax.swing.JLabel lblEstudiante;
     private javax.swing.JLabel lblIngresarDatos;
     private javax.swing.JLabel lblInicio;
@@ -1135,6 +1160,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel lblLicenciatura;
     private javax.swing.JLabel lblMatricula;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblTituloLibro;
     private javax.swing.JMenu menuConsultar;
     private javax.swing.JMenu menuInicio;
     private javax.swing.JMenuItem menuItemCerrarSesion;
