@@ -1,5 +1,6 @@
 package principal;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -911,15 +912,15 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnVerLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerLibrosActionPerformed
-        // TODO add your handling code here:
+        mostrarJDialogLibros();
     }//GEN-LAST:event_btnVerLibrosActionPerformed
 
     private void btnVerRevistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerRevistasActionPerformed
-        // TODO add your handling code here:
+        mostrarJDialogRevistas();
     }//GEN-LAST:event_btnVerRevistasActionPerformed
 
     private void btnVerTesisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerTesisActionPerformed
-        // TODO add your handling code here:
+        mostrarJDialogTesis();
     }//GEN-LAST:event_btnVerTesisActionPerformed
 
     private void btnAnyadirLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnyadirLibroActionPerformed
@@ -936,7 +937,14 @@ public class Interfaz extends javax.swing.JFrame {
         if (!validarDatosLib()) {
             return;
         }
-        Libro a = new Libro(txtCodigoLib.getText(), txtTituloLib.getText(), txtAutorLib.getText(), txtEditorialLib.getText(), Integer.parseInt(txtCantidadLib.getText()), true);
+        String codigoLibIngresado = txtCodigoLib.getText();
+        for (Libro l : listaLibros) {
+            if (l.getCodigo().equals(codigoLibIngresado) && lblAnyadirLibro.getText().equals("Añadir Libro")) {
+                JOptionPane.showMessageDialog(dialogAnyadirLibros, "Error. \nLibro ya registrado con ese código", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+        Libro a = new Libro(txtCodigoLib.getText(), txtTituloLib.getText(), txtAutorLib.getText(), txtEditorialLib.getText(), Integer.parseInt(txtCantidadLib.getText()));
         listaLibros.add(a);
         txtCodigoLib.setText("");
         txtTituloLib.setText("");
@@ -961,6 +969,13 @@ public class Interfaz extends javax.swing.JFrame {
     private void btnAceptarRevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarRevActionPerformed
         if (!validarDatosRev()) {
             return;
+        }
+        String codigoRevIngresado = txtCodigoRev.getText();
+        for (Revista r : listaRevistas) {
+            if (r.getCodigo().equals(codigoRevIngresado) && lblAnyadirRevista.getText().equals("Añadir Revista")) {
+                JOptionPane.showMessageDialog(dialogAnyadirRevistas, "Error. \nRevista ya registrada con ese código", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
         }
         Revista b = new Revista(txtCodigoRev.getText(), txtTituloRev.getText(), txtEditorialRev.getText());
         listaRevistas.add(b);
@@ -1105,7 +1120,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCantidadLibKeyTyped
 
     private void txtAutorLibKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAutorLibKeyTyped
-        if (!Character.isLetter(evt.getKeyChar())) {
+        if (!Character.isLetter(evt.getKeyChar()) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtAutorLibKeyTyped
@@ -1212,7 +1227,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarAnyadirTesisActionPerformed
 
     private void txtAutorTesisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAutorTesisKeyTyped
-        if (!Character.isLetter(evt.getKeyChar())) {
+        if (!Character.isLetter(evt.getKeyChar()) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtAutorTesisKeyTyped
@@ -1220,6 +1235,13 @@ public class Interfaz extends javax.swing.JFrame {
     private void btnAceptarTesisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarTesisActionPerformed
         if (!validarDatosTesis()) {
             return;
+        }
+        String codigoTesIngresado = txtCodigoTesis.getText();
+        for (Tesis t : listaTesis) {
+            if (t.getCodigo().equals(codigoTesIngresado) && lblAnyadirTesis.getText().equals("Añadir Tesis")) {
+                JOptionPane.showMessageDialog(dialogAnyadirTesis, "Error. \nTesis ya registrada con ese código", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
         }
         Tesis t = new Tesis(txtCodigoTesis.getText(), txtTituloTesis.getText(),
                 txtAutorTesis.getText(), txtDirectorTesis.getText(),
@@ -1242,7 +1264,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDirectorTesisKeyTyped
 
     private void txtUniversidadTesisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUniversidadTesisKeyTyped
-        if (!Character.isLetter(evt.getKeyChar())) {
+        if (!Character.isLetter(evt.getKeyChar()) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)) {
             evt.consume();
         }
     }//GEN-LAST:event_txtUniversidadTesisKeyTyped
