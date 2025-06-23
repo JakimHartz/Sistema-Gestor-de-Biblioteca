@@ -7,18 +7,23 @@ import javax.swing.table.DefaultTableModel;
 
 public class Interfaz extends javax.swing.JFrame {
 
-    static DefaultTableModel t = new DefaultTableModel();
+    static DefaultTableModel x = new DefaultTableModel();
+    static DefaultTableModel y = new DefaultTableModel();
+    static DefaultTableModel z = new DefaultTableModel();
 //    DefaultComboBoxModel<String> m = new DefaultComboBoxModel<>();
 
 //    ArrayList<String> usuariosReg = new ArrayList<>();
     ArrayList<Libro> listaLibros = new ArrayList<>();
     ArrayList<Revista> listaRevistas = new ArrayList<>();
+    ArrayList<Tesis> listaTesis = new ArrayList<>();
     ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
     public Interfaz() {
         initComponents();
         this.setLocationRelativeTo(null);
-        t = (DefaultTableModel) tablaLibros.getModel();
+        x = (DefaultTableModel) tablaLibros.getModel();
+        y = (DefaultTableModel) tablaRevistas.getModel();
+        z = (DefaultTableModel) tablaTesis.getModel();
         oculta();
         ocultarMenus();
         pnlAcceso.setVisible(true);
@@ -81,6 +86,8 @@ public class Interfaz extends javax.swing.JFrame {
         btnAnyadirTesis = new javax.swing.JButton();
         btnVolverTesis = new javax.swing.JButton();
         btnActualizarTablaTesis = new javax.swing.JButton();
+        btnEliminarTesis = new javax.swing.JButton();
+        btnActualizarTesis = new javax.swing.JButton();
         dialogAnyadirTesis = new javax.swing.JDialog();
         btnRegresarAnyadirTesis = new javax.swing.JButton();
         lblAnyadirTesis = new javax.swing.JLabel();
@@ -460,7 +467,7 @@ public class Interfaz extends javax.swing.JFrame {
                 btnAnyadirTesisActionPerformed(evt);
             }
         });
-        dialogTesis.getContentPane().add(btnAnyadirTesis, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 470, 250, -1));
+        dialogTesis.getContentPane().add(btnAnyadirTesis, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 470, 250, -1));
 
         btnVolverTesis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconVolverAtras.png"))); // NOI18N
         btnVolverTesis.addActionListener(new java.awt.event.ActionListener() {
@@ -479,11 +486,34 @@ public class Interfaz extends javax.swing.JFrame {
         });
         dialogTesis.getContentPane().add(btnActualizarTablaTesis, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 50, 50));
 
+        btnEliminarTesis.setFont(new java.awt.Font("Liberation Serif", 1, 24)); // NOI18N
+        btnEliminarTesis.setText("<html>Eliminar<br>registro</html>");
+        btnEliminarTesis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarTesisActionPerformed(evt);
+            }
+        });
+        dialogTesis.getContentPane().add(btnEliminarTesis, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, -1, -1));
+
+        btnActualizarTesis.setFont(new java.awt.Font("Liberation Serif", 1, 24)); // NOI18N
+        btnActualizarTesis.setText("<html>Actualizar<br>registro</html>");
+        btnActualizarTesis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarTesisActionPerformed(evt);
+            }
+        });
+        dialogTesis.getContentPane().add(btnActualizarTesis, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 460, -1, -1));
+
         dialogAnyadirTesis.setTitle("Añadir tesis");
         dialogAnyadirTesis.setMinimumSize(new java.awt.Dimension(800, 600));
         dialogAnyadirTesis.setModal(true);
         dialogAnyadirTesis.setPreferredSize(new java.awt.Dimension(800, 600));
         dialogAnyadirTesis.setSize(new java.awt.Dimension(800, 600));
+        dialogAnyadirTesis.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                dialogAnyadirTesisWindowClosing(evt);
+            }
+        });
         dialogAnyadirTesis.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnRegresarAnyadirTesis.setFont(new java.awt.Font("Liberation Serif", 1, 24)); // NOI18N
@@ -531,6 +561,11 @@ public class Interfaz extends javax.swing.JFrame {
         dialogAnyadirTesis.getContentPane().add(lblDirectorTesis, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, -1, -1));
 
         txtDirectorTesis.setFont(new java.awt.Font("Liberation Serif", 1, 18)); // NOI18N
+        txtDirectorTesis.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDirectorTesisKeyTyped(evt);
+            }
+        });
         dialogAnyadirTesis.getContentPane().add(txtDirectorTesis, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 380, -1));
 
         btnAceptarTesis.setFont(new java.awt.Font("Liberation Serif", 1, 36)); // NOI18N
@@ -551,6 +586,11 @@ public class Interfaz extends javax.swing.JFrame {
         dialogAnyadirTesis.getContentPane().add(lblUniversidadTesis, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 130, -1));
 
         txtUniversidadTesis.setFont(new java.awt.Font("Liberation Serif", 1, 18)); // NOI18N
+        txtUniversidadTesis.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUniversidadTesisKeyTyped(evt);
+            }
+        });
         dialogAnyadirTesis.getContentPane().add(txtUniversidadTesis, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 380, -1));
 
         cbxGradoTesis.setFont(new java.awt.Font("Liberation Serif", 0, 18)); // NOI18N
@@ -927,7 +967,7 @@ public class Interfaz extends javax.swing.JFrame {
         txtCodigoRev.setText("");
         txtTituloRev.setText("");
         txtEditorialRev.setText("");
-        JOptionPane.showMessageDialog(this, "Revista registrada.");
+        JOptionPane.showMessageDialog(dialogAnyadirRevistas, "Revista registrada. \nActualice para ver los cambios.");
         System.out.println(listaRevistas.size());
         System.out.println("ArrayList: " + listaRevistas);
     }//GEN-LAST:event_btnAceptarRevActionPerformed
@@ -941,7 +981,9 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarUsuarioActionPerformed
 
     private void btnAnyadirTesisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnyadirTesisActionPerformed
-        // TODO add your handling code here:
+        lblAnyadirTesis.setText("Añadir Tesis");
+        dialogAnyadirTesis.setLocationRelativeTo(this);
+        dialogAnyadirTesis.setVisible(true);
     }//GEN-LAST:event_btnAnyadirTesisActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
@@ -975,13 +1017,6 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemCerrarSesionActionPerformed
 
     private void menuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSalirActionPerformed
-//        int opcion = JOptionPane.showConfirmDialog(this, "¿Está seguro de que desea salir?", "Elija una opción", JOptionPane.YES_NO_OPTION);
-//        if (opcion == JOptionPane.YES_OPTION) {
-//            JOptionPane.showMessageDialog(this, "Hasta luego. Au revoir", "Salir", JOptionPane.INFORMATION_MESSAGE);
-//            System.exit(0);
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Volviendo...", "Volver", JOptionPane.INFORMATION_MESSAGE);
-//        }
         java.awt.event.WindowEvent cerrar = new java.awt.event.WindowEvent(this, java.awt.event.WindowEvent.WINDOW_CLOSING);
         formWindowClosing(cerrar);
     }//GEN-LAST:event_menuItemSalirActionPerformed
@@ -1014,7 +1049,7 @@ public class Interfaz extends javax.swing.JFrame {
                     listaLibros.remove(indiceFilaLib);
                     break;
                 } else {
-                    JOptionPane.showMessageDialog(dialogLibros, "Libro no encontrado!", "Advertencia", JOptionPane.WARNING_MESSAGE);
+//                    JOptionPane.showMessageDialog(dialogLibros, "Libro no encontrado!", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }
             }
         } else {
@@ -1045,17 +1080,17 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverRevistasActionPerformed
 
     private void btnEliminarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarLibroActionPerformed
-        int indiceFila = tablaLibros.getSelectedRow();
+        int indiceFilaEliLib = tablaLibros.getSelectedRow();
         int columna = 0;
-        if (indiceFila != -1) {
-            String codigoLibro = (String) tablaLibros.getValueAt(indiceFila, columna);
+        if (indiceFilaEliLib != -1) {
+            String codigoLibro = (String) tablaLibros.getValueAt(indiceFilaEliLib, columna);
             for (Libro l : listaLibros) {
                 if (l.getCodigo().equals(codigoLibro)) {
-                    listaLibros.remove(indiceFila);
+                    listaLibros.remove(indiceFilaEliLib);
                     JOptionPane.showMessageDialog(dialogLibros, "<html>Libro eliminado.<br/>Actualice para ver cambios.</html>", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 } else {
-                    JOptionPane.showMessageDialog(dialogLibros, "Libro no encontrado!", "Advertencia", JOptionPane.WARNING_MESSAGE);
+//                    JOptionPane.showMessageDialog(dialogLibros, "Libro no encontrado!", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }
             }
         } else {
@@ -1090,17 +1125,17 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_dialogAnyadirLibrosWindowClosing
 
     private void btnEliminarRevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRevistaActionPerformed
-        int indiceFila = tablaRevistas.getSelectedRow();
+        int indiceFilaEliRev = tablaRevistas.getSelectedRow();
         int columna = 0;
-        if (indiceFila != -1) {
-            String codigoLibro = (String) tablaRevistas.getValueAt(indiceFila, columna);
+        if (indiceFilaEliRev != -1) {
+            String codigoRev = (String) tablaRevistas.getValueAt(indiceFilaEliRev, columna);
             for (Revista r : listaRevistas) {
-                if (r.getCodigo().equals(codigoLibro)) {
-                    listaRevistas.remove(indiceFila);
+                if (r.getCodigo().equals(codigoRev)) {
+                    listaRevistas.remove(indiceFilaEliRev);
                     JOptionPane.showMessageDialog(dialogRevistas, "Revista eliminada. \nActualice para ver cambios.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 } else {
-                    JOptionPane.showMessageDialog(dialogRevistas, "Revista no encontrada!", "Advertencia", JOptionPane.WARNING_MESSAGE);
+//                    JOptionPane.showMessageDialog(dialogRevistas, "Revista no encontrada!", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 }
             }
         } else {
@@ -1112,10 +1147,10 @@ public class Interfaz extends javax.swing.JFrame {
         int indiceFilaRev = tablaRevistas.getSelectedRow();
         int columna = 0;
         if (indiceFilaRev != -1) {
-            String codigoLibro = (String) tablaRevistas.getValueAt(indiceFilaRev, columna);
+            String codigoRev = (String) tablaRevistas.getValueAt(indiceFilaRev, columna);
             for (Revista r : listaRevistas) {
-                if (r.getCodigo().equals(codigoLibro)) {
-                    lblAnyadirLibro.setText("Modificar Revista");
+                if (r.getCodigo().equals(codigoRev)) {
+                    lblAnyadirRevista.setText("Modificar Revista");
                     txtCodigoRev.setText(r.getCodigo());
                     txtTituloRev.setText(r.getTitulo());
                     txtEditorialRev.setText(r.getEditorial());
@@ -1163,16 +1198,113 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarAnyadirRevistasActionPerformed
 
     private void btnRegresarAnyadirTesisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarAnyadirTesisActionPerformed
-        // TODO add your handling code here:
+        if (!txtCodigoTesis.getText().trim().isEmpty() || !txtTituloTesis.getText().trim().isEmpty()
+                || !txtAutorTesis.getText().trim().isEmpty() || !txtDirectorTesis.getText().trim().isEmpty()
+                || !txtUniversidadTesis.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(dialogAnyadirTesis, "Error de registro.");
+        }
+        dialogAnyadirTesis.setVisible(false);
+        txtCodigoTesis.setText("");
+        txtTituloTesis.setText("");
+        txtAutorTesis.setText("");
+        txtDirectorTesis.setText("");
+        txtUniversidadTesis.setText("");
     }//GEN-LAST:event_btnRegresarAnyadirTesisActionPerformed
 
     private void txtAutorTesisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAutorTesisKeyTyped
-        // TODO add your handling code here:
+        if (!Character.isLetter(evt.getKeyChar())) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtAutorTesisKeyTyped
 
     private void btnAceptarTesisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarTesisActionPerformed
-        // TODO add your handling code here:
+        if (!validarDatosTesis()) {
+            return;
+        }
+        Tesis t = new Tesis(txtCodigoTesis.getText(), txtTituloTesis.getText(),
+                txtAutorTesis.getText(), txtDirectorTesis.getText(),
+                String.valueOf(cbxGradoTesis.getSelectedItem()), txtUniversidadTesis.getText());
+        listaTesis.add(t);
+        txtCodigoTesis.setText("");
+        txtTituloTesis.setText("");
+        txtAutorTesis.setText("");
+        txtDirectorTesis.setText("");
+        txtUniversidadTesis.setText("");
+        JOptionPane.showMessageDialog(dialogAnyadirTesis, "Tesis registrada. \nActualice para ver cambios.");
+        System.out.println(listaTesis.size());
+        System.out.println("ArrayList: " + listaTesis);
     }//GEN-LAST:event_btnAceptarTesisActionPerformed
+
+    private void txtDirectorTesisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDirectorTesisKeyTyped
+        if (!Character.isLetter(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDirectorTesisKeyTyped
+
+    private void txtUniversidadTesisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUniversidadTesisKeyTyped
+        if (!Character.isLetter(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtUniversidadTesisKeyTyped
+
+    private void btnEliminarTesisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTesisActionPerformed
+        int indiceFilaEliminarTesis = tablaTesis.getSelectedRow();
+        int columna = 0;
+        if (indiceFilaEliminarTesis != -1) {
+            String codigoTesis = (String) tablaTesis.getValueAt(indiceFilaEliminarTesis, columna);
+            for (Tesis t : listaTesis) {
+                if (t.getCodigo().equals(codigoTesis)) {
+                    listaTesis.remove(indiceFilaEliminarTesis);
+                    JOptionPane.showMessageDialog(dialogTesis, "Tesis eliminada. \nActualice para ver cambios.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                } else {
+//                    JOptionPane.showMessageDialog(dialogTesis, "Tesis no encontrada!", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(dialogTesis, "Seleccione un registro!", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarTesisActionPerformed
+
+    private void btnActualizarTesisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarTesisActionPerformed
+        int indiceFilaTesis = tablaTesis.getSelectedRow();
+        int columna = 0;
+        if (indiceFilaTesis != -1) {
+            String codigoTesis = (String) tablaTesis.getValueAt(indiceFilaTesis, columna);
+            for (Tesis t : listaTesis) {
+                if (t.getCodigo().equals(codigoTesis)) {
+                    lblAnyadirTesis.setText("Modificar Tesis");
+                    txtCodigoTesis.setText(t.getCodigo());
+                    txtTituloTesis.setText(t.getTitulo());
+                    txtAutorTesis.setText(t.getAutor());
+                    txtDirectorTesis.setText(t.getDirector());
+                    txtUniversidadTesis.setText(t.getUniversidad());
+                    dialogAnyadirTesis.setLocationRelativeTo(this);
+                    dialogAnyadirTesis.setVisible(true);
+                    listaTesis.remove(indiceFilaTesis);
+                    break;
+                } else {
+//                    JOptionPane.showMessageDialog(dialogTesis, "Tesis no encontrada!", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(dialogTesis, "Seleccione un registro!", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnActualizarTesisActionPerformed
+
+    private void dialogAnyadirTesisWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_dialogAnyadirTesisWindowClosing
+        if (!txtCodigoTesis.getText().trim().isEmpty() || !txtTituloTesis.getText().trim().isEmpty()
+                || !txtAutorTesis.getText().trim().isEmpty() || !txtDirectorTesis.getText().trim().isEmpty()
+                || !txtUniversidadTesis.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(dialogAnyadirTesis, "Error de registro.");
+        }
+        dialogAnyadirTesis.setVisible(false);
+        txtCodigoTesis.setText("");
+        txtTituloTesis.setText("");
+        txtAutorTesis.setText("");
+        txtDirectorTesis.setText("");
+        txtUniversidadTesis.setText("");
+    }//GEN-LAST:event_dialogAnyadirTesisWindowClosing
 
     public void oculta() {
         pnlAcceso.setVisible(false);
@@ -1192,47 +1324,47 @@ public class Interfaz extends javax.swing.JFrame {
         menuReportes.setEnabled(true);
     }
 
-    public static void limpiaTabla() {
-        int a = t.getRowCount();
+    public static void limpiaTabla(DefaultTableModel w) {
+        int a = w.getRowCount();
         while (a != 0) {
             if (a != 0) {
-                t.removeRow(0);
+                w.removeRow(0);
             }
-            a = t.getRowCount();
+            a = w.getRowCount();
         }
     }
 
     public void mostrarJDialogLibros() {
         dialogLibros.setLocationRelativeTo(this);
         dialogLibros.setVisible(true);
-        limpiaTabla();
+        limpiaTabla(x);
         for (Libro a : listaLibros) {
             Object[] fila = {a.getCodigo(), a.getTitulo(), a.getAutor(), a.getEditorial(), a.getCantidad()};
-            t.addRow(fila);
+            x.addRow(fila);
         }
-        tablaLibros.setModel(t);
+        tablaLibros.setModel(x);
     }
 
     public void mostrarJDialogRevistas() {
         dialogRevistas.setLocationRelativeTo(this);
         dialogRevistas.setVisible(true);
-        limpiaTabla();
+        limpiaTabla(y);
         for (Revista a : listaRevistas) {
             Object[] fila = {a.getCodigo(), a.getTitulo(), a.getEditorial()};
-            t.addRow(fila);
+            y.addRow(fila);
         }
-        tablaRevistas.setModel(t);
+        tablaRevistas.setModel(y);
     }
 
     public void mostrarJDialogTesis() {
         dialogTesis.setLocationRelativeTo(this);
         dialogTesis.setVisible(true);
-        limpiaTabla();
-        for (Libro a : listaLibros) {
-            Object[] fila = {a.getCodigo(), a.getTitulo(), a.getAutor(), a.getEditorial(), a.getIdioma()};
-            t.addRow(fila);
+        limpiaTabla(z);
+        for (Tesis c : listaTesis) {
+            Object[] fila = {c.getCodigo(), c.getTitulo(), c.getAutor(), c.getDirector(), c.getGrado(), c.getUniversidad()};
+            z.addRow(fila);
         }
-        tablaTesis.setModel(t);
+        tablaTesis.setModel(z);
     }
 
     public void mostrarJDialogRegistrarUsuario() {
@@ -1243,7 +1375,7 @@ public class Interfaz extends javax.swing.JFrame {
     public boolean validarDatosRev() {
         if (txtCodigoRev.getText().trim().isEmpty() || txtTituloRev.getText().trim().isEmpty()
                 || txtEditorialRev.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese adecuadamente sus datos.");
+            JOptionPane.showMessageDialog(dialogAnyadirRevistas, "Por favor, ingrese adecuadamente los datos.");
             return false;
         }
         return true;
@@ -1264,6 +1396,16 @@ public class Interfaz extends javax.swing.JFrame {
                 || txtAutorLib.getText().trim().isEmpty() || txtEditorialLib.getText().trim().isEmpty()
                 || txtCantidadLib.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese adecuadamente sus datos.");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validarDatosTesis() {
+        if (txtCodigoTesis.getText().trim().isEmpty() || txtTituloTesis.getText().trim().isEmpty()
+                || txtAutorTesis.getText().trim().isEmpty() || txtDirectorTesis.getText().trim().isEmpty()
+                || txtUniversidadTesis.getText().trim().isEmpty() || cbxGradoTesis == null) {
+            JOptionPane.showMessageDialog(dialogAnyadirTesis, "Por favor, ingrese adecuadamente los datos.");
             return false;
         }
         return true;
@@ -1313,12 +1455,14 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizarTablaLibros;
     private javax.swing.JButton btnActualizarTablaRevistas;
     private javax.swing.JButton btnActualizarTablaTesis;
+    private javax.swing.JButton btnActualizarTesis;
     private javax.swing.JButton btnAnyadirLibro;
     private javax.swing.JButton btnAnyadirRev;
     private javax.swing.JButton btnAnyadirTesis;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminarLibro;
     private javax.swing.JButton btnEliminarRevista;
+    private javax.swing.JButton btnEliminarTesis;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnRegistrarUsuario;
     private javax.swing.JButton btnRegresarAnyadirLibros;
